@@ -13,9 +13,9 @@
   <div class="login-box">
     <div class="login-form">
       <h2>Welcome!</h2>
-      <form>
-        <input type="text" placeholder="Student Number" required>
-        <input type="password" placeholder="********" required>
+      <form action="/login" method="post">
+        <input type="snumber" name="snumber" placeholder="Student Number" required>
+        <input type="password" name="password" placeholder="********" required>
         <div class="submit">
           <input type="submit" value="Login">
         </div>

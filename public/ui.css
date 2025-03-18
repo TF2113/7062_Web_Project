@@ -9,6 +9,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #79c0ff;
+    padding: 0 20px;
     gap: 20px; /* Add space between form and image */
   }
 
@@ -71,7 +72,6 @@ body {
     background-position: center;
   }
 
-  /* Make the layout responsive */
   @media (max-width: 768px) {
     .login-box {
       flex-direction: column;
@@ -79,6 +79,11 @@ body {
 
     .login-form,
     .login-image {
-      width: 75%;
+      width: 100%;
+    }
+
+    /* Ensure the image is not hidden and adjusts for smaller screens */
+    .login-image {
+      height: 200px; /* Set a specific height for the image on small screens */
     }
   }
