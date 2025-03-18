@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Progression Login</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/pico.css@1.5.5/css/pico.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/ui.css" />
-  </head>
-  <body>
-    <main class="container-fluid">
-      <div class="centered-box">
-        <h2 class="login-heading">Login</h2>
-        <form>
-          <div class="login-title">
-            <h4>Student Number</h4>
-          </div>
-          <label for="snumber"></label>
-          <input
-            name="student_number"
-            placeholder="Student Number"
-            autocomplete="name"
-          />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1.5.1/dist/pico.min.css">
+  <link rel="stylesheet" href="/ui.css">
+</head>
+<body>
 
-          <div class="login-title">
-            <h4>Password</h4>
-          </div>
-          <label for="password"></label>
-          <input
-            type="password"
-            id="password"
-            placeholder="*******"
-            autocomplete="current-password"
-          />
-          <div class="submit">
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
-      </div>
-    </main>
-  </body>
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-form">
+      <h2>Welcome!</h2>
+      <form>
+        <input type="text" placeholder="Student Number" required>
+        <input type="password" placeholder="********" required>
+        <div class="submit">
+          <input type="submit" value="Login">
+        </div>
+      </form>
+    </div>
+
+    <div class="login-image"></div>
+  </div>
+</div>
+
+</body>
 </html>

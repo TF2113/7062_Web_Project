@@ -1,50 +1,84 @@
 body {
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    height: 100vh; /* Make the body take up the full height of the viewport */
-    margin: 0; /* Remove default margin */
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    background-color: #79C0FF; /* Light background color */
 }
 
-.centered-box {
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #79c0ff;
+    gap: 20px; /* Add space between form and image */
+  }
+
+  .login-box {
+    display: flex;
+    width: 100%;
+    max-width: 900px; /* Set max width for larger screens */
     background-color: white;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    justify-content: center;
-}
+    overflow: hidden; /* Ensure rounded corners are respected */
+  }
 
-.centered-box input {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.login-heading {
-    display: flex;
-    justify-content: center;
-}
-
-.login-title {
-    display: flex;
-    justify-content: start;
-    padding-bottom: 0%;
-    margin-bottom: 0;
-    h4 {
-        margin-bottom: 5%;
+  .login-form {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    h2 {
+        display: flex;
+        justify-content: center;
     }
-}
+  }
+
+  .login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensures padding is inside the input */
+  }
 
 .submit {
     display: flex;
     justify-content: center;
-    padding-top: 5%;
-    input {
-        color: white;
-        background-color: #017FC0;
-        width: 50%;
-    }
 }
+
+  .login-form .submit input {
+    width: 50%;
+    padding: 12px 20px;
+    font-size: 1.25rem;
+    background-color: #007bff;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .login-form .submit input:hover {
+    background-color: #0056b3;
+  }
+
+  .login-image {
+    width: 50%;
+    border-radius: 8px;
+    border: white 1px;
+    background-image: url('/uni-image.jpg'); /* Add your image URL here */
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Make the layout responsive */
+  @media (max-width: 768px) {
+    .login-box {
+      flex-direction: column;
+    }
+
+    .login-form,
+    .login-image {
+      width: 75%;
+    }
+  }
