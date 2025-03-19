@@ -22,9 +22,10 @@
         <aside>
             <nav>
               <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Products</a></li>
+                <li><a href="#">Portal</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Progression</a></li>
+                <li><a href="#">Pings</a></li>
               </ul>
             </nav>
           </aside>
@@ -33,8 +34,26 @@
         <div class="dash-container">
           <div class="dash-box">
             <div class="dash-title">
-              <h3><%= student_name %></h3>
-              <p>Welcome to the dashboard, <%= student_name %>!</p>
+              <h3>Home Portal</h3>
+              <p>Welcome back, <%= student_name %>!</p>
+            </div>
+            <div class="grid">
+                <article>
+                    <header>Most Recent Result</header>
+                    <div class="grid">
+                    <ul><%= student_subjects[student_results.length-1].module_title %></ul>
+                    <ul> <%= student_results[student_results.length - 1].first_grade %>% </ul>
+                </div>
+                <progress value="<%= student_results[student_results.length - 1].first_grade %>" max="100" />    
+                  </article>  
+                  <article>
+                    <header>Overall Result</header>
+                    <div class="grid">
+                    <ul>Total Percentage</ul>
+                    <ul> <%= average %>% </ul>
+                </div>
+                <progress value="<%= average %>" max="100" />    
+                  </article>        
             </div>
           </div>
         </div>

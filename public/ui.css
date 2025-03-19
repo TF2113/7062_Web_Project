@@ -139,7 +139,7 @@ body {
   }
 
   .sidebar nav ul li a:hover {
-    background-color: #b0e0e6;
+    background-color: #70798c;
     color: white;
   }
 
@@ -160,8 +160,8 @@ body {
   }
 
   .dash-box {
-    max-width: 800px;
-    width: 100%;
+    max-width: auto;
+    width: 80%;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
