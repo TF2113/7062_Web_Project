@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const session = require('express-session');
+const app = express();
 
 app.use(session({
   secret: 'your-secret-key',
@@ -16,41 +16,47 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-// GET request for login page
-app.get('/', (req, res) => {
-  res.render('login');
-});
+// Dummy user database
+const users = {
+  'user': { name: 'John Doe', password: 'password' },
+  'admin': { name: 'Admin User', password: 'admin123' }
+};
 
-// POST request for login
+// Routes
+app.get('/', (req, res) =>  {
+   res.render('login')
+  });
+
 app.post('/login', (req, res) => {
-  const snumber = req.body.snumber;
-  const password = req.body.password;
+  const { snumber, password } = req.body;
 
-  if (snumber === 'user' && password === 'password') {
+  if (users[snumber] && users[snumber].password === password) {
     req.session.snumber = snumber;
+    req.session.name = users[snumber].name;
     res.redirect('/dashboard');
   } else {
     res.send('Invalid credentials. <a href="/">Try again</a>');
   }
 });
 
-// GET request for dashboard (protected route)
 app.get('/dashboard', (req, res) => {
   if (!req.session.snumber) {
-    return res.redirect('/'); // If the user is not logged in, redirect to login page
+    return res.redirect('/');
   }
-  
-  // Render the dashboard
-  res.send(`Welcome to your dashboard, ${req.session.snumber}! <a href="/logout">Logout</a>`);
+
+  res.render('dashboard', {
+    snumber: req.session.snumber,
+    name: req.session.name
+  });
 });
 
-// GET request for logout
+
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.send('Error during logout');
     }
-    res.redirect('/'); // Redirect to login page after logout
+    res.redirect('/');
   });
 });
 

@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <p>test</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="/ui.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="profile">
+            <!-- Profile Picture (Use an actual image URL here) -->
+            <img src="/uni-image.jpg" alt="Profile Picture">
+            <h3><%= name %></h3>
+          </div>
+        <aside>
+            <nav>
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Products</a></li>
+              </ul>
+            </nav>
+          </aside>
+      </div>
+
+      <div class="main-content">
+        <div class="dash-container">
+          <div class="dash-box">
+            <div class="dash-title">
+              <h3><%= name %></h3>
+              <p>Welcome to the dashboard, <%= name %>!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
