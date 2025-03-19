@@ -6,12 +6,30 @@
   <title>Login</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1.5.1/dist/pico.min.css">
   <link rel="stylesheet" href="/ui.css">
+  <script>
+    // Toggle between Sign In and Sign Up forms
+    function toggleForm() {
+      const signUpForm = document.getElementById('signUpForm');
+      const signInForm = document.getElementById('signInForm');
+      const toggleText = document.getElementById('toggleText');
+
+      if (signInForm.style.display === 'none') {
+        signInForm.style.display = 'block';
+        signUpForm.style.display = 'none';
+        toggleText.innerHTML = 'First time? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up!</a>';
+      } else {
+        signInForm.style.display = 'none';
+        signUpForm.style.display = 'block';
+        toggleText.innerHTML = 'Already have an account? <a href="javascript:void(0);" onclick="toggleForm()">Sign In!</a>';
+      }
+    }
+  </script>
 </head>
 <body>
 
 <div class="login-container">
   <div class="login-box">
-    <div class="login-form">
+    <div id="signInForm" class="login-form">
       <h2>Welcome!</h2>
       <form action="/login" method="post">
         <input type="snumber" name="snumber" placeholder="Student Number" required>
@@ -20,13 +38,25 @@
           <input type="submit" value="Login">
         </div>
       </form>
-      <div class="signup">
-        <h5 class="toggle-heading">First time?<a href=""> Sign Up!</a></h5>
-      </div>
-      <div class="admin">
-        <h5 class="toggle-heading">Administrator?<a href=""> Sign In!</a></h5>
+      <div class="toggle-heading" id="toggleText">
+        First time? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a>
       </div>
     </div>
+
+    <div id="signUpForm" class="login-form" style="display: none;">
+      <h2>Create Account</h2>
+      <form action="/signup" method="post">
+        <input type="text" name="new_snumber" placeholder="Student Number" required>
+        <input type="password" name="new_password" placeholder="Create Password" required>
+        <div class="submit">
+          <input type="submit" value="Sign Up">
+        </div>
+      </form>
+      <div class="toggle-heading" id="toggleText">
+        Already Registered? <a href="javascript:void(0);" onclick="toggleForm()">Log In</a>
+      </div>
+    </div>
+
 
     <div class="login-image"></div>
   </div>
