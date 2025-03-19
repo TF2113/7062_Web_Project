@@ -9,6 +9,17 @@
     />
     <link rel="stylesheet" href="/ui.css" />
     <title>Document</title>
+    <style>
+        progress::-webkit-progress-bar {
+          background-color: #e0e0e0; 
+        }
+        progress::-webkit-progress-value {
+          background-color: var(--progress-bar-color, <%= progressColour %>);
+        }
+        progress::-moz-progress-bar {
+          background-color: var(--progress-bar-color, <%= progressColour %>);
+        }
+    </style>
   </head>
   <body>
     <div class="main-container">
@@ -44,7 +55,7 @@
                     <ul><%= student_subjects[student_results.length-1].module_title %></ul>
                     <ul> <%= student_results[student_results.length - 1].first_grade %>% </ul>
                 </div>
-                <progress value="<%= student_results[student_results.length - 1].first_grade %>" max="100" />    
+                <progress id="progress-bar" value="<%= student_results[student_results.length - 1].first_grade %>" max="100" />    
                   </article>  
                   <article>
                     <header>Overall Result</header>
@@ -52,12 +63,12 @@
                     <ul>Total Percentage</ul>
                     <ul> <%= average %>% </ul>
                 </div>
-                <progress value="<%= average %>" max="100" />    
+                <progress id="progress-bar" value="<%= average %>" max="100" />
                   </article>        
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>     
   </body>
 </html>

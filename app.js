@@ -99,6 +99,15 @@ app.post("/login", async (req, res) => {
 
       let averageGrade = gradeCount > 0 ? totalGrades / gradeCount : 0;
 
+      let progressBarColour;
+      if (averageGrade >= 70) {
+        progressBarColour = "#4CAF50"; // Green
+      } else if (averageGrade >= 50) {
+        progressBarColour = "#FFC107"; // Yellow
+      } else {
+        progressBarColour = "#F44336"; // Red
+      }
+
       const [subjects] = await db
         .promise()
         .query(
@@ -112,6 +121,7 @@ app.post("/login", async (req, res) => {
         student_results: studentModules,
         student_subjects: subjects,
         average: averageGrade,
+        progressColour: progressBarColour
       });
     } else {
       res.redirect("/?error=Invalid student number or password");
