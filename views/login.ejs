@@ -37,6 +37,13 @@
         <div class="submit">
           <input type="submit" value="Login">
         </div>
+        <div class="error">
+        <% if (error) { %>
+          <div class="error-message" style="color: red; margin-top: 10px;">
+            <%= error %>
+          </div>
+        <% } %>
+      </div>
       </form>
       <div class="toggle-heading" id="toggleText">
         First time? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a>
@@ -51,11 +58,19 @@
         <div class="submit">
           <input type="submit" value="Sign Up">
         </div>
+        <div class="error">
+        <% if (error) { %>
+          <div class="error-message" style="color: red; margin-top: 10px;">
+            <%= error %>
+          </div>
+        </div>
+        <% } %>
       </form>
       <div class="toggle-heading" id="toggleText">
         Already Registered? <a href="javascript:void(0);" onclick="toggleForm()">Log In</a>
       </div>
     </div>
+    
 
 
     <div class="login-image"></div>

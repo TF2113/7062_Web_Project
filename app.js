@@ -2,18 +2,9 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
-const mysql = require("mysql2");
+const db = require("./config/db");
 const app = express();
 const calculateAverageGrade = require("./utils/calculateAverageGrade");
-
-// Database connection
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "40432835",
-  port: 3306,
-});
 
 app.use(
   session({
@@ -50,8 +41,7 @@ app.post("/login", async (req, res) => {
       .query("SELECT * FROM students WHERE student_number = ?", [snumber]);
 
     if (results.length === 0) {
-      return res.redirect("/?error=Invalid student number or password");
-    }
+      return res.render("login", { error: "Invalid student number or password" });    }
 
     const user = results[0];
 
@@ -66,7 +56,7 @@ app.post("/login", async (req, res) => {
       // Redirect to dashboard (the query will be handled there)
       res.redirect("/dashboard");
     } else {
-      res.redirect("/?error=Invalid student number or password");
+      res.render("login", { error: "Invalid student number or password" });
     }
   } catch (err) {
     return res.send("Database error: " + err);
@@ -82,7 +72,7 @@ app.post("/signup", (req, res) => {
   console.log("Password:", new_password);
 
   if (!new_snumber || !new_password) {
-    return res.send("Missing student number or password");
+    return res.render("signup", { error: "Missing student number or password" });
   }
 
   // Normalize and trim the student number before checking
@@ -95,11 +85,12 @@ app.post("/signup", (req, res) => {
     [normalizedSNumber],
     (err, results) => {
       if (err) {
-        return res.send("Database error");
+        return res.render("signup", { error: "Missing student number or password" });
+
       }
 
       if (results.length === 0) {
-        return res.redirect("/?signupError=Student number does not exist");
+        return res.render("login", { error: "Student Number not found" });
       }
 
       // Hash the password before updating
