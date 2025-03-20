@@ -138,12 +138,12 @@ app.get("/dashboard", async (req, res) => {
     const [studentModules] = await db
       .promise()
       .query(
-        "SELECT student_modules.* FROM student_modules JOIN students ON students.student_number = ? AND student_modules.student_id = students.student_id",
+        "SELECT student_modules.* FROM student_modules JOIN students ON students.student_number = ? AND student_modules.student_id = students.student_id ORDER BY student_modules.academic_year",
         [snumber]
       );
 
       const averageGrade = calculateAverageGrade(studentModules);
-
+      console.log(averageGrade)
     // Fetch subjects for student modules
     const [studentSubjects] = await db
       .promise()
