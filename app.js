@@ -4,6 +4,7 @@ const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const mysql = require("mysql2");
 const app = express();
+const calculateAverageGrade = require("./utils/calculateAverageGrade");
 
 // Database connection
 const db = mysql.createPool({
@@ -58,71 +59,12 @@ app.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
-      const [studentModules] = await db
-        .promise()
-        .query(
-          "SELECT student_modules.* FROM student_modules JOIN students ON students.student_number = ? AND student_modules.student_id = students.student_id",
-          [snumber]
-        );
+      // Store user info in session
+      req.session.snumber = user.student_number;
+      req.session.name = user.first_name + " " + user.last_name;
 
-      let totalGrades = 0;
-      let gradeCount = 0;
-
-      studentModules.forEach((result) => {
-        let gradeToAdd = 0;
-        if (
-          result.first_result === "fail" ||
-          result.first_result === "excused" ||
-          result.first_result === "absent"
-        ) {
-          if (result.resit_result === "pass capped") {
-            gradeToAdd = 40; // If resit result is 'pass capped', assign 40
-          } else if (
-            result.resit_grade !== undefined &&
-            result.resit_grade !== null
-          ) {
-            gradeToAdd = parseInt(result.resit_grade, 10);
-          }
-        } else if (result.first_result === "pass capped") {
-          gradeToAdd = 40;
-        } else if (
-          result.first_grade !== undefined &&
-          result.first_grade !== null
-        ) {
-          gradeToAdd = parseInt(result.first_grade, 10);
-        }
-        if (gradeToAdd !== 0) {
-          totalGrades += gradeToAdd;
-          gradeCount++;
-        }
-      });
-
-      let averageGrade = gradeCount > 0 ? totalGrades / gradeCount : 0;
-
-      let progressBarColour;
-      if (averageGrade >= 70) {
-        progressBarColour = "#4CAF50"; // Green
-      } else if (averageGrade >= 50) {
-        progressBarColour = "#FFC107"; // Yellow
-      } else {
-        progressBarColour = "#F44336"; // Red
-      }
-
-      const [subjects] = await db
-        .promise()
-        .query(
-          "SELECT subjects.module_title FROM subjects JOIN student_modules ON student_modules.subject_id = subjects.subject_id JOIN students ON students.student_id = student_modules.student_id WHERE students.student_number = ?",
-          [snumber]
-        );
-
-      res.render("dashboard", {
-        student_number: user.student_number,
-        student_name: user.first_name + " " + user.last_name,
-        student_results: studentModules,
-        student_subjects: subjects,
-        average: averageGrade,
-        progressColour: progressBarColour
-      });
+      // Redirect to dashboard (the query will be handled there)
+      res.redirect("/dashboard");
     } else {
       res.redirect("/?error=Invalid student number or password");
     }
@@ -130,6 +72,7 @@ app.post("/login", async (req, res) => {
     return res.send("Database error: " + err);
   }
 });
+
 
 // Handle sign-up form submission
 app.post("/signup", (req, res) => {
@@ -183,16 +126,45 @@ app.post("/signup", (req, res) => {
 });
 
 // Dashboard page
-app.get("/dashboard", (req, res) => {
+app.get("/dashboard", async (req, res) => {
   if (!req.session.snumber) {
     return res.redirect("/");
   }
 
-  res.render("dashboard", {
-    snumber: req.session.snumber,
-    name: req.session.name,
-  });
+  const snumber = req.session.snumber;
+
+  try {
+    // Fetch student modules
+    const [studentModules] = await db
+      .promise()
+      .query(
+        "SELECT student_modules.* FROM student_modules JOIN students ON students.student_number = ? AND student_modules.student_id = students.student_id",
+        [snumber]
+      );
+
+      const averageGrade = calculateAverageGrade(studentModules);
+
+    // Fetch subjects for student modules
+    const [studentSubjects] = await db
+      .promise()
+      .query(
+        "SELECT subjects.module_title FROM subjects JOIN student_modules ON student_modules.subject_id = subjects.subject_id JOIN students ON students.student_id = student_modules.student_id WHERE students.student_number = ?",
+        [snumber]
+      );
+
+    // Pass data to the dashboard view
+    res.render("dashboard", {
+      snumber: req.session.snumber,
+      student_name: req.session.name,
+      average: averageGrade,
+      student_results: studentModules,
+      student_subjects: studentSubjects,
+    });
+  } catch (err) {
+    return res.send("Database error: " + err);
+  }
 });
+
 
 // Handle logout
 app.post("/logout", (req, res) => {

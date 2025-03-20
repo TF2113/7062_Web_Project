@@ -8,18 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
     <link rel="stylesheet" href="/ui.css" />
-    <title>Document</title>
-    <style>
-        progress::-webkit-progress-bar {
-          background-color: #e0e0e0; 
-        }
-        progress::-webkit-progress-value {
-          background-color: var(--progress-bar-color, <%= progressColour %>);
-        }
-        progress::-moz-progress-bar {
-          background-color: var(--progress-bar-color, <%= progressColour %>);
-        }
-    </style>
+    <title>Dashboard</title>
   </head>
   <body>
     <div class="main-container">
@@ -49,26 +38,48 @@
               <p>Welcome back, <%= student_name %>!</p>
             </div>
             <div class="grid">
-                <article>
-                    <header>Most Recent Result</header>
-                    <div class="grid">
-                    <ul><%= student_subjects[student_results.length-1].module_title %></ul>
-                    <ul> <%= student_results[student_results.length - 1].first_grade %>% </ul>
-                </div>
-                <progress id="progress-bar" value="<%= student_results[student_results.length - 1].first_grade %>" max="100" />    
-                  </article>  
-                  <article>
-                    <header>Overall Result</header>
-                    <div class="grid">
-                    <ul>Total Percentage</ul>
-                    <ul> <%= average %>% </ul>
-                </div>
-                <progress id="progress-bar" value="<%= average %>" max="100" />
-                  </article>        
+              <div class="grid" style="display: flex; gap: 20px; justify-content: space-between;">
+                
+                <article style="flex: 1;">
+                  <h4>Most Recent Result</h4>
+                  <div class="grid">
+                    <% let latestResult = student_results[student_results.length - 1]; %>
+                    <p><%= student_subjects[student_subjects.length-1].module_title %></p>
+                    <div class="module">
+                      <ul><%= latestResult.first_grade %>%</ul>
+                    </div>
+                  </div>
+                  <progress id="progress-bar-<%= student_results.length - 1 %>" 
+                            value="<%= latestResult.first_grade %>" 
+                            max="100">
+                  </progress>
+                </article>
+            
+                <article style="flex: 1;">
+                  <h4>Overall %</h4>
+                  <div class="grid">
+                    <% average %>
+                    <p>Current Grade</p>
+                    <div class="module">
+                      <ul><%= average %>%</ul>
+                    </div>
+                  </div>
+                  <progress id="progress-bar-<%= average %>" 
+                            value="<%= average %>" 
+                            max="100">
+                  </progress>
+                </article>
+            
+              </div>
             </div>
+            
           </div>
         </div>
       </div>
-    </div>     
+    </div> 
+    <script>
+      const studentModules = <%- JSON.stringify(student_results) %>;
+  </script>
+  <script src="/script.js" defer></script>    
   </body>
 </html>

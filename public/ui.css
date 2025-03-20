@@ -11,17 +11,17 @@ body {
   height: 100vh;
   background-color: #733c4a;
   padding: 0 20px;
-  gap: 20px; /* Add space between form and image */
+  gap: 20px; 
 }
 
 .login-box {
   display: flex;
   width: 100%;
-  max-width: 900px; /* Set max width for larger screens */
+  max-width: 900px; 
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ensure rounded corners are respected */
+  overflow: hidden; 
 }
 
 .login-form {
@@ -40,7 +40,7 @@ body {
   margin-bottom: 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  box-sizing: border-box; /* Ensures padding is inside the input */
+  box-sizing: border-box;
 }
 
 .submit {
@@ -61,7 +61,7 @@ body {
 }
 
 .login-form .submit input:hover {
-  background-color: #253d40
+  background-color: #253d40;
 }
 
 .signup .admin {
@@ -85,7 +85,7 @@ body {
   width: 50%;
   border-radius: 8px;
   border: white 1px;
-  background-image: url("/uni-image.jpg"); /* Add your image URL here */
+  background-image: url("/uni-image.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -100,92 +100,100 @@ body {
     width: 100%;
   }
 
-  /* Ensure the image is not hidden and adjusts for smaller screens */
   .login-image {
-    height: 200px; /* Set a specific height for the image on small screens */
+    height: 200px;
   }
 }
-   /* Wrapper to create a flexible layout */
-   .main-container {
-    display: flex;
-    height: 100vh;
-  }
 
-  /* Sidebar styles */
-  .sidebar {
-    width: auto; /* Width of the sidebar */
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-  }
+.main-container {
+  display: flex;
+  height: 100vh;
+}
 
-  .sidebar nav ul {
-    margin-top: 20%;
-    padding-left: 0;
-    list-style: none;
-  }
+.sidebar {
+  width: auto;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
 
-  .sidebar nav ul li {
-    margin-bottom: 15px;
-  }
+.sidebar nav ul {
+  margin-top: 20%;
+  padding-left: 0;
+  list-style: none;
+}
 
-  .sidebar nav ul li a {
-    color: inherit;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
+.sidebar nav ul li {
+  margin-bottom: 15px;
+}
 
-  .sidebar nav ul li a:hover {
-    background-color: #70798c;
-    color: white;
-  }
+.sidebar nav ul li a {
+  color: inherit;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
 
-  /* Main content area */
-  .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #733c4a;
-    overflow-y: auto;
-  }
+.sidebar nav ul li a:hover {
+  background-color: #70798c;
+  color: white;
+}
 
-  /* Ensuring the login container has a flexible layout */
-  .dash-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #733c4a;
+  overflow-y: auto;
+}
 
-  .dash-box {
-    max-width: auto;
-    width: 80%;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
+.dash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-  /* Add some space between the name and the nav */
-  .dash-title h3 {
-    margin-bottom: 20px;
-  }
-  /* Profile section with image and name */
-  .profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+.dash-box {
+  max-width: auto;
+  width: 80%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
 
-  .profile img {
-    width: 80px; /* Adjust the size of the profile image */
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 15px; /* Space between image and name */
-  }
+.dash-title h3 {
+  margin-bottom: 20px;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-  .profile h3 {
-    margin: 0;
-  }
+.profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.profile h3 {
+  margin: 0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--progress-bar-color, #4caf50);
+  border-radius: 10px;
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--progress-bar-color, #4caf50);
+}
